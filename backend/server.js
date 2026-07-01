@@ -11,8 +11,10 @@ app.use(cors());
 app.use(express.json());
 
 import sareeRoutes from './routes/sareeRoutes.js';
+import adminRoutes from './routes/adminRoutes.js';
 
 app.use('/api/sarees', sareeRoutes);
+app.use('/api/admin', adminRoutes);
 
 const connectDB = async () => {
     try {

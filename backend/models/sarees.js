@@ -4,11 +4,13 @@ const sareeSchema = new mongoose.Schema(
     {
         name: {
             type: String,
-            required: true
+            required: true,
+            trim: true
         },
 
         image: {
-            type: String
+            type: String,
+            required: true
         },
 
         description: {
@@ -18,7 +20,8 @@ const sareeSchema = new mongoose.Schema(
         
         price: {
             type: Number,
-            required: true
+            required: true,
+            min: 0
         },
 
         category: {
