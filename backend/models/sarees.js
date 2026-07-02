@@ -37,4 +37,4 @@ const sareeSchema = new mongoose.Schema(
     }
 );
 
-export default mongoose.model("sarees",sareeSchema);
+export default mongoose.model("Saree",sareeSchema);

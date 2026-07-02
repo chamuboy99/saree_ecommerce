@@ -2,7 +2,22 @@ import Saree from '../models/sarees.js';
 
 export const addSaree = async (req, res) => {
     try {
-        const saree = await Saree.create(req.body);
+        const imageUrl = req.file?.path;
+
+        if (!imageUrl) {
+            return res.status(400).json({
+                success: false,
+                message: "Image is required"
+            });
+        }
+
+        const sareeData = {
+            ...req.body,
+            image: imageUrl
+        };
+
+        const saree = await Saree.create(sareeData);
+        
         res.status(201).json({
             success: true,
             message: 'saree added successfully',

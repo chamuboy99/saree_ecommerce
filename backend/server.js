@@ -12,9 +12,13 @@ app.use(express.json());
 
 import sareeRoutes from './routes/sareeRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
+import orderRoutes from './routes/orderRoutes.js';
+import uploadRoutes from './routes/uploadRoutes.js';
 
 app.use('/api/sarees', sareeRoutes);
 app.use('/api/admin', adminRoutes);
+app.use('/api/order', orderRoutes);
+app.use("/api/upload", uploadRoutes);
 
 const connectDB = async () => {
     try {
