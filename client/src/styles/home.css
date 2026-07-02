@@ -1,0 +1,126 @@
+.home-main {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #0f172a, #1e293b);
+    padding: clamp(1rem, 3vw, 3rem);
+}
+
+.home-main h1 {
+    color: #fff;
+    text-align: center;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: 700;
+    margin-bottom: 2rem;
+    letter-spacing: 1px;
+}
+
+/* Product Grid */
+.home-main > div {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 1.8rem;
+    max-width: 1400px;
+    margin: auto;
+}
+
+/* Product Card */
+.home-main > div > div {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(16px);
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    overflow: hidden;
+    transition: all .3s ease;
+    box-shadow: 0 12px 30px rgba(0,0,0,.25);
+}
+
+.home-main > div > div:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 45px rgba(0,0,0,.4);
+}
+
+/* Image */
+.home-main img {
+    width: 100%;
+    aspect-ratio: 4 / 5;
+    object-fit: cover;
+    transition: transform .4s ease;
+}
+
+.home-main > div > div:hover img {
+    transform: scale(1.05);
+}
+
+/* Content */
+.home-main h2 {
+    color: #fff;
+    font-size: 1.2rem;
+    font-weight: 600;
+    margin: 1rem 1rem .4rem;
+    line-height: 1.4;
+}
+
+.home-main p {
+    margin: 0 1rem 1rem;
+    color: #22c55e;
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+/* Button */
+.home-main button {
+    margin: auto 1rem 1rem;
+    height: 45px;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    background: linear-gradient(135deg, #f97316, #ef4444);
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    transition: all .25s ease;
+}
+
+.home-main button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 20px rgba(239,68,68,.35);
+}
+
+.home-main button:active {
+    transform: scale(.98);
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .home-main {
+        padding: 1.2rem;
+    }
+
+    .home-main > div {
+        gap: 1.2rem;
+    }
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+    .home-main h1 {
+        margin-bottom: 1.5rem;
+    }
+
+    .home-main > div {
+        grid-template-columns: 1fr;
+    }
+
+    .home-main h2 {
+        font-size: 1.1rem;
+    }
+
+    .home-main p {
+        font-size: 1rem;
+    }
+
+    .home-main button {
+        height: 42px;
+    }
+}
