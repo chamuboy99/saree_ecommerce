@@ -20,6 +20,14 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/order', orderRoutes);
 app.use("/api/upload", uploadRoutes);
 
+app.get("/api/health", (req, res) => {
+    res.status(200).json({
+        status: "ok",
+        uptime: process.uptime(),
+        timestamp: new Date()
+    });
+});
+
 const connectDB = async () => {
     try {
         const conn = await mongoose.connect(process.env.MONGO_URI);
