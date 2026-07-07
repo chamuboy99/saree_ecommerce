@@ -23,7 +23,7 @@ export default function Checkout() {
             quantity: i.quantity
         }));
 
-        await axios.post(`${import.meta.env.VITE_API_URL}/api/order`, {
+        await axios.post(`${process.env.REACT_APP_API_URL}/api/order`, {
             ...formData,
             items
         });
