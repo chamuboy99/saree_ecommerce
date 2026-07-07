@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import axios from 'axios';
 import { CartContext } from "../context/CartContext.jsx";
 import '../styles/home.css';
+import Header from "../components/Header.jsx";
 
 export default function Home() {
     const [products, setProducts] = useState([]);
@@ -17,6 +18,8 @@ export default function Home() {
     }
 
     return (
+        <>
+        <Header/>
         <div className="home-main">
             <h1>Saree Collection</h1>
                 <div>
@@ -30,6 +33,6 @@ export default function Home() {
                     ))}
                 </div>
         </div>
-
+        </>
     );
 }
