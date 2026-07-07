@@ -2,6 +2,7 @@ import express from 'express';
 import mongoose from 'mongoose';
 import dotenv from 'dotenv';
 import cors from 'cors';
+import compression from 'compression';
 
 dotenv.config();
 
@@ -9,6 +10,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(compression());
 
 import sareeRoutes from './routes/sareeRoutes.js';
 import adminRoutes from './routes/adminRoutes.js';
