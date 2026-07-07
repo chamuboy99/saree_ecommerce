@@ -14,7 +14,7 @@
 }
 
 /* Product Grid */
-.home-main > div {
+.products {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
     gap: 1.8rem;
@@ -23,7 +23,7 @@
 }
 
 /* Product Card */
-.home-main > div > div {
+.products > div {
     display: flex;
     flex-direction: column;
     background: rgba(255, 255, 255, 0.06);
@@ -35,25 +35,25 @@
     box-shadow: 0 12px 30px rgba(0,0,0,.25);
 }
 
-.home-main > div > div:hover {
+.products > div:hover {
     transform: translateY(-8px);
     box-shadow: 0 20px 45px rgba(0,0,0,.4);
 }
 
 /* Image */
-.home-main img {
+.products > div img {
     width: 100%;
     aspect-ratio: 4 / 5;
     object-fit: cover;
     transition: transform .4s ease;
 }
 
-.home-main > div > div:hover img {
+.products > div:hover img {
     transform: scale(1.05);
 }
 
 /* Content */
-.home-main h2 {
+.products > div h2 {
     color: #fff;
     font-size: 1.2rem;
     font-weight: 600;
@@ -61,7 +61,7 @@
     line-height: 1.4;
 }
 
-.home-main p {
+.products > div p {
     margin: 0 1rem 1rem;
     color: #22c55e;
     font-size: 1.15rem;
@@ -69,7 +69,7 @@
 }
 
 
-.home-main button {
+.products > div button {
     margin: auto 1rem 1rem;
     height: 45px;
     border: none;
@@ -82,12 +82,12 @@
     transition: all .25s ease;
 }
 
-.home-main button:hover {
+.products > div button:hover {
     transform: translateY(-2px);
     box-shadow: 0 10px 20px rgba(239,68,68,.35);
 }
 
-.home-main button:active {
+.products > div button:active {
     transform: scale(.98);
 }
 
@@ -97,8 +97,37 @@
         padding: 1.2rem;
     }
 
-    .home-main > div {
+    .products {
         gap: 1.2rem;
+    }
+}
+
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: white;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #eee;
+    border-top: 5px solid #d63384;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
     }
 }
 
@@ -108,15 +137,15 @@
         margin-bottom: 1.5rem;
     }
 
-    .home-main > div {
+    .products {
         grid-template-columns: 1fr;
     }
 
-    .home-main h2 {
+    .products > div h2 {
         font-size: 1.1rem;
     }
 
-    .home-main p {
+    .products > div p {
         font-size: 1rem;
     }
 
