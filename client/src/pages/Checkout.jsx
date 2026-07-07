@@ -23,7 +23,7 @@ export default function Checkout() {
             quantity: i.quantity
         }));
 
-        await axios.post('http://localhost:5000/api/order', {
+        await axios.post(`${import.meta.env.VITE_API_URL}/api/order`, {
             ...formData,
             items
         });

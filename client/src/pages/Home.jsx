@@ -3,6 +3,7 @@ import axios from 'axios';
 import { CartContext } from "../context/CartContext.jsx";
 import '../styles/home.css';
 import Header from "../components/Header.jsx";
+const API_URL = import.meta.env.VITE_API_URL;
 
 export default function Home() {
     const [products, setProducts] = useState([]);
@@ -13,7 +14,7 @@ export default function Home() {
     }, []);
 
     const fetchProducts = async () => {
-        const res = await axios.get('http://localhost:5000/api/sarees');
+        const res = await axios.get(`${API_URL}/api/sarees`);
         setProducts(res.data);
     }
 
