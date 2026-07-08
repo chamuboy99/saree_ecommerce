@@ -1,5 +1,8 @@
 export const categories = [
     {
+        name: "All"
+    },
+    {
         name: "Handloom",
         subCategories: [
             {

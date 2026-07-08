@@ -10,6 +10,10 @@ export default function CategoryFilter({ open, onFilter }) {
     };
 
     const selectCategory = (category) => {
+        if (category.name === "All") {
+            onFilter({});
+            return;
+        }
         onFilter({
             category: category.name
         });
@@ -48,17 +52,17 @@ export default function CategoryFilter({ open, onFilter }) {
                             {category.name}
                         </button>
 
-                        <button
-                            className={`expand-btn ${
-                                expanded === index ? "rotate" : ""
-                            }`}
-                            onClick={() => toggleCategory(index)}
-                        >
-                            ▼
-                        </button>
+                        {category.subCategories && (
+                            <button
+                                className={`expand-btn ${expanded === index ? "rotate" : ""}`}
+                                onClick={() => toggleCategory(index)}
+                            >
+                                ▼
+                            </button>
+                        )}
                     </div>
 
-                    {expanded === index && (
+                    {expanded === index && category.subCategories && (
                         <div className="subcategory-list">
                             {category.subCategories.map((sub) => (
                                 <div key={sub.name}>
