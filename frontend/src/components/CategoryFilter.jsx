@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { categories } from "../constants/categories.js";
+import '../styles/categoryfilter.css';
 
 export default function CategoryFilter({ open, onFilter }) {
     const [expanded, setExpanded] = useState(null);
@@ -32,7 +33,7 @@ export default function CategoryFilter({ open, onFilter }) {
     if (!open) return null;
 
     return (
-        <div className="filter-panel">
+        <aside className={`filter-panel ${open ? "open" : ""}`}>
             <div className="filter-header">
                 <h3>Categories</h3>
             </div>
@@ -40,32 +41,43 @@ export default function CategoryFilter({ open, onFilter }) {
             {categories.map((category, index) => (
                 <div key={category.name} className="category-item">
                     <div className="category-row">
-                        <span onClick={() => selectCategory(category)}>
+                        <button
+                            className="category-name"
+                            onClick={() => selectCategory(category)}
+                        >
                             {category.name}
-                        </span>
-                        <button onClick={() => toggleCategory(index)}>
+                        </button>
+
+                        <button
+                            className={`expand-btn ${
+                                expanded === index ? "rotate" : ""
+                            }`}
+                            onClick={() => toggleCategory(index)}
+                        >
                             ▼
                         </button>
                     </div>
+
                     {expanded === index && (
                         <div className="subcategory-list">
-                            {category.subCategories.map(sub => (
+                            {category.subCategories.map((sub) => (
                                 <div key={sub.name}>
-                                    <div className="subcategory-row">
-                                        <span onClick={() =>
-                                                selectSubCategory(
-                                                    category,
-                                                    sub
-                                                )
-                                            }
-                                        >
-                                            {sub.name}
-                                        </span>
-                                    </div>
+                                    <button
+                                        className="subcategory-row"
+                                        onClick={() =>
+                                            selectSubCategory(category, sub)
+                                        }
+                                    >
+                                        {sub.name}
+                                    </button>
+
                                     {sub.subSubCategories && (
                                         <div className="subsubcategory-list">
-                                            {sub.subSubCategories.map(item => (
-                                                <div key={item} onClick={() =>
+                                            {sub.subSubCategories.map((item) => (
+                                                <button
+                                                    key={item}
+                                                    className="subsubcategory-item"
+                                                    onClick={() =>
                                                         selectSubSubCategory(
                                                             category,
                                                             sub,
@@ -74,16 +86,16 @@ export default function CategoryFilter({ open, onFilter }) {
                                                     }
                                                 >
                                                     {item}
-                                                </div>    
+                                                </button>
                                             ))}
-                                        </div>   
+                                        </div>
                                     )}
-                                </div>  
+                                </div>
                             ))}
-                        </div>   
+                        </div>
                     )}
                 </div>
             ))}
-        </div>
+        </aside>
     );
 }
