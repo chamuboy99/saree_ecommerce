@@ -2,13 +2,13 @@ import '../styles/header.css';
 import { FaHome, FaShoppingCart, FaBars, FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-function Header() {
+export default function Header({filterOpen, setFilterOpen}) {
     const navigate = useNavigate();
     return (
         <header className="header">
             <div className="header-container">
 
-                <button className="navi-btn">
+                <button className="navi-btn" onClick={()=>setFilterOpen(!filterOpen)}>
                     <FaBars />
                 </button>
 
@@ -35,5 +35,3 @@ function Header() {
         </header>
     );
 }
-
-export default Header;

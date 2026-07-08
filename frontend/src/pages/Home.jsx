@@ -1,32 +1,70 @@
-import { useContext, useEffect, useState } from "react";
+import { useCallback, useContext, useEffect, useState } from "react";
 import axios from 'axios';
 import { CartContext } from "../context/CartContext.jsx";
 import '../styles/home.css';
 import Header from "../components/Header.jsx";
 import { useNavigate } from "react-router-dom";
+import CategoryFilter from "../components/CategoryFilter.jsx";
 
 export default function Home() {
     const [products, setProducts] = useState([]);
-    const { addToCart } = useContext(CartContext);
     const [loading, setLoading] = useState(true);
+    const [filterOpen, setFilterOpen] = useState(false);
+    const [filters, setFilters] = useState({});
 
+    const { addToCart } = useContext(CartContext);
     const navigate = useNavigate();
 
-    useEffect(() => {
-        fetchProducts();
+    const fetchProducts = useCallback(async (currentFilters = {}) => {
+        try {
+            setLoading(true);
+
+            const res = await axios.get(
+                `${process.env.REACT_APP_API_URL}/api/sarees`,
+                {
+                    params: currentFilters
+                }
+            );
+
+            setProducts(res.data);
+        } catch (err) {
+            console.error("Failed to fetch products:", err);
+            setProducts([]);
+        } finally {
+            setLoading(false);
+        }
     }, []);
 
-    const fetchProducts = async () => {
-        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/sarees`);
-        setProducts(res.data);
-        setLoading(false);
-    }
+    useEffect(() => {
+        fetchProducts(filters);
+    }, [fetchProducts, filters]);
+
+    const handleFilter = (newFilters) => {
+        setFilters(newFilters);
+        setFilterOpen(false);
+    };
+
+    const clearFilters = () => {
+        setFilters({});
+        setFilterOpen(false);
+    };
 
     return (
         <>
-            <Header />
+            <Header
+                filterOpen={filterOpen}
+                setFilterOpen={setFilterOpen}
+            />
+
+            <CategoryFilter
+                open={filterOpen}
+                onFilter={handleFilter}
+                clearFilters={clearFilters}
+            />
+
             <div className="home-main">
                 <h1>Saree Collection</h1>
+
                 {loading ? (
                     <div className="loader-container">
                         <div className="loader"></div>
@@ -34,15 +72,19 @@ export default function Home() {
                     </div>
                 ) : (
                     <div className="products">
-                        {products.map(p => (
+                        {products.map((p) => (
                             <div key={p._id} onClick={() => navigate(`/${p._id}`)}>
-                                <img src={p.image} alt="" />
+                                <img src={p.image} alt={p.name} />
                                 <h2>{p.name}</h2>
-                                <p><b>Rs.{p.price}/=</b></p>
+                                <p> <b>Rs. {p.price}</b></p>
+
                                 <button onClick={(e) => {
-                                    addToCart(p);
-                                    e.stopPropagation();
-                                }}>Add to Cart</button>
+                                        e.stopPropagation();
+                                        addToCart(p);
+                                    }}
+                                >
+                                    Add to Cart
+                                </button>
                             </div>
                         ))}
                     </div>
