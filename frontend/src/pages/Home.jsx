@@ -7,7 +7,6 @@ import { useNavigate } from "react-router-dom";
 
 export default function Home() {
     const [products, setProducts] = useState([]);
-    const [saree, setSaree] = useState({});
     const { addToCart } = useContext(CartContext);
     const [loading, setLoading] = useState(true);
 
