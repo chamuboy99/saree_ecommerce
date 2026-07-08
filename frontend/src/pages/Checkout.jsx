@@ -1,12 +1,15 @@
-import { useContext, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useContext, useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import axios from 'axios';
 import { CartContext } from "../context/CartContext.jsx";
 import '../styles/checkout.css';
 import Header from "../components/Header.jsx";
 
 export default function Checkout() {
+    const { id } = useParams();
     const navigate = useNavigate();
+    const [saree, setSaree] = useState(null);
+    const [loading, setLoading] = useState(true);
     const { cart, clearCart } = useContext(CartContext);
     const [ formData, setFormData ] = useState({
         customerName: "",
@@ -14,14 +17,37 @@ export default function Checkout() {
         address: "",
         notes: ""
     });
+    
+    useEffect(() => {
+        if (!id) return;
 
-    const total = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+        const fetchSaree = async () => {
+            const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/sarees/${id}`);
+            setSaree(res.data);
+            setLoading(false);
+        };
+
+        fetchSaree();
+    }, [id]);
+
+    const total = id ? saree?.price || 0 : cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
 
     const placeOrder = async () => {
-        const items = cart.map(i => ({
-            productId: i._id,
-            quantity: i.quantity
-        }));
+        let items = [];
+
+        if(id){
+            items = [
+                {
+                    productId: saree._id,
+                    quantity: 1
+                }
+            ];
+        } else {
+            items = cart.map(i => ({
+                productId: i._id,
+                quantity: i.quantity
+            }));
+        }
 
         await axios.post(`${process.env.REACT_APP_API_URL}/api/order`, {
             ...formData,
@@ -45,7 +71,7 @@ export default function Checkout() {
             <Header/>
             <div className="checkout-main">
                 <h1>Checkout</h1>
-                {cart.map(i => (
+                {!id ? cart.map(i => (
                     <div key={i._id} className="checkout-item">
                         <img src={i.image} alt="" />
                         <div className="checkout-item-details">
@@ -55,6 +81,19 @@ export default function Checkout() {
                             <p>Subtotal: Rs.{i.price * i.quantity}</p>
                         </div>
                     </div>
+                )):( loading ? (
+                        <div className="loader-container">
+                            <div className="loader"></div>
+                            <p>Loading Sarees...</p>
+                        </div>
+                    ) : (
+                        <div className="checkout-item">
+                            <img src={saree.image} alt="" />
+                            <div className="checkout-item-details">
+                                <p><b>{saree.name}</b></p>
+                                <p>Rs.{saree.price}</p>
+                            </div>
+                        </div>
                 ))}
                 <h2>Total: Rs.{total}</h2>
                 <div className="payment-method">

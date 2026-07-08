@@ -3,11 +3,15 @@ import axios from 'axios';
 import { CartContext } from "../context/CartContext.jsx";
 import '../styles/home.css';
 import Header from "../components/Header.jsx";
+import { useNavigate } from "react-router-dom";
 
 export default function Home() {
     const [products, setProducts] = useState([]);
+    const [saree, setSaree] = useState({});
     const { addToCart } = useContext(CartContext);
     const [loading, setLoading] = useState(true);
+
+    const navigate = useNavigate();
 
     useEffect(() => {
         fetchProducts();
@@ -32,11 +36,14 @@ export default function Home() {
                 ) : (
                     <div className="products">
                         {products.map(p => (
-                            <div key={p._id} >
+                            <div key={p._id} onClick={() => navigate(`/${p._id}`)}>
                                 <img src={p.image} alt="" />
                                 <h2>{p.name}</h2>
                                 <p><b>Rs.{p.price}/=</b></p>
-                                <button onClick={() => addToCart(p)}>Add to Cart</button>
+                                <button onClick={(e) => {
+                                    addToCart(p);
+                                    e.stopPropagation();
+                                }}>Add to Cart</button>
                             </div>
                         ))}
                     </div>
