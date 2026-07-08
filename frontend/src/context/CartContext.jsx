@@ -4,8 +4,6 @@ export const CartContext = createContext();
 
 
 export const CartProvider = ({ children }) => {
-
-    const CART_EXPIRY = 24 * 60 * 60 * 1000 * 2; // 48 hours
     
     const [cart, setCart] = useState(()=>{
         const savedCart = localStorage.getItem('cart');
@@ -31,7 +29,7 @@ export const CartProvider = ({ children }) => {
             "cart",
             JSON.stringify({
                 cart,
-                expiresAt: Date.now() + CART_EXPIRY,
+                expiresAt: Date.now() + 24 * 60 * 60 * 1000 * 2,
             })
         );
     }, [cart]);
