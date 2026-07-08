@@ -26,9 +26,9 @@ export default function Saree() {
         fetchSaree();
     }, [id]);
 
-    return(
+    return (
         <>
-            <Header/>
+            <Header />
             <div className="saree-main">
                 <div>
                     {loading ? (
@@ -36,27 +36,28 @@ export default function Saree() {
                             <div className="loader"></div>
                             <p>Loading Sarees...</p>
                         </div>
-                    ): (
+                    ) : (
                         <div className="saree-details">
                             <img src={saree.image} alt="" />
                             <div className="saree-info">
                                 <h2>{saree.name}</h2>
+                                <p>{saree.category} {saree.subCategory} {saree.subSubCategory}</p>
                                 <p>{saree.description}</p>
                                 <p>Rs.{saree.price}</p>
                                 <div className="cb-btns">
-                                    <button onClick={()=>navigate(`/checkout/${id}`)}>
-                                        <FaShoppingBag/>
+                                    <button onClick={() => navigate(`/checkout/${id}`)}>
+                                        <FaShoppingBag />
                                         <span>Buy Now</span>
                                     </button>
-                                    <button onClick={()=>addToCart(saree)}>
-                                        <FaShoppingCart/>
+                                    <button onClick={() => addToCart(saree)}>
+                                        <FaShoppingCart />
                                         <span>Add to Cart</span>
                                     </button>
                                 </div>
                             </div>
-                        </div> 
+                        </div>
                     )}
-                    
+
                 </div>
             </div>
         </>

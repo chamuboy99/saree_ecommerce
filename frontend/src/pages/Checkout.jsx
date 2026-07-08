@@ -11,13 +11,13 @@ export default function Checkout() {
     const [saree, setSaree] = useState(null);
     const [loading, setLoading] = useState(true);
     const { cart, clearCart } = useContext(CartContext);
-    const [ formData, setFormData ] = useState({
+    const [formData, setFormData] = useState({
         customerName: "",
         phoneNumber: "",
         address: "",
         notes: ""
     });
-    
+
     useEffect(() => {
         if (!id) return;
 
@@ -35,7 +35,7 @@ export default function Checkout() {
     const placeOrder = async () => {
         let items = [];
 
-        if(id){
+        if (id) {
             items = [
                 {
                     productId: saree._id,
@@ -66,9 +66,9 @@ export default function Checkout() {
         }));
     }
 
-    return(
+    return (
         <>
-            <Header/>
+            <Header />
             <div className="checkout-main">
                 <h1>Checkout</h1>
                 {!id ? cart.map(i => (
@@ -81,19 +81,19 @@ export default function Checkout() {
                             <p>Subtotal: Rs.{i.price * i.quantity}</p>
                         </div>
                     </div>
-                )):( loading ? (
-                        <div className="loader-container">
-                            <div className="loader"></div>
-                            <p>Loading Sarees...</p>
+                )) : (loading ? (
+                    <div className="loader-container">
+                        <div className="loader"></div>
+                        <p>Loading Sarees...</p>
+                    </div>
+                ) : (
+                    <div className="checkout-item">
+                        <img src={saree.image} alt="" />
+                        <div className="checkout-item-details">
+                            <p><b>{saree.name}</b></p>
+                            <p>Rs.{saree.price}</p>
                         </div>
-                    ) : (
-                        <div className="checkout-item">
-                            <img src={saree.image} alt="" />
-                            <div className="checkout-item-details">
-                                <p><b>{saree.name}</b></p>
-                                <p>Rs.{saree.price}</p>
-                            </div>
-                        </div>
+                    </div>
                 ))}
                 <h2>Total: Rs.{total}</h2>
                 <div className="payment-method">
@@ -102,24 +102,24 @@ export default function Checkout() {
                 <div className="checkout-form">
                     <div className="form-group">
                         <label>Name</label>
-                        <input type="text" name="customerName" value={formData.customerName} onChange={handleChange} required/>
+                        <input type="text" name="customerName" value={formData.customerName} onChange={handleChange} required />
                     </div>
                     <div className="form-group">
                         <label>Contact Number</label>
-                        <input type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required/>
+                        <input type="number" name="phoneNumber" value={formData.phoneNumber} onChange={handleChange} required />
                     </div>
                     <div className="form-group">
                         <label>Address</label>
-                        <input type="text" name="address" value={formData.address} onChange={handleChange} required/>
+                        <input type="text" name="address" value={formData.address} onChange={handleChange} required />
                     </div>
                     <div className="form-group">
                         <label>Notes</label>
-                        <input type="text" name="notes" value={formData.notes} onChange={handleChange} placeholder="optional"/>
+                        <input type="text" name="notes" value={formData.notes} onChange={handleChange} placeholder="optional" />
                     </div>
 
                     <button onClick={placeOrder}>Confirm</button>
                 </div>
-                
+
             </div>
         </>
     );

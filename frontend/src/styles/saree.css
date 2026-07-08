@@ -49,6 +49,13 @@
 }
 
 .saree-details p:first-of-type {
+    color: #94a3b8;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    font-weight: 700;
+}
+
+.saree-details p:nth-of-type(2) {
     color: #cbd5e1;
     line-height: 1.8;
     font-size: 1rem;

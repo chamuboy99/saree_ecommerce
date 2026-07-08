@@ -18,11 +18,7 @@ export const addSaree = async (req, res) => {
 
         const saree = await Saree.create(sareeData);
         
-        res.status(201).json({
-            success: true,
-            message: 'saree added successfully',
-            data: saree
-        });
+        res.status(201).json(saree);
     } catch (error) {
         res.status(500).json({
             success: false,

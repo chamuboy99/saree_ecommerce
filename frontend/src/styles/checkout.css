@@ -154,6 +154,35 @@
     background: #1d4ed8;
 }
 
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 300px;
+    color: white;
+}
+
+.loader {
+    width: 50px;
+    height: 50px;
+    border: 5px solid #eee;
+    border-top: 5px solid #d63384;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
 /* ===========================
    Tablet
 =========================== */

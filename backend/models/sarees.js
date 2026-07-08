@@ -27,7 +27,17 @@ const sareeSchema = new mongoose.Schema(
         category: {
             type: String,
             required: true,
-            enum: ["type1", "type2", "type3", "type4"]
+            enum: ["Handloom", "Cotton", "Batik"]
+        },
+
+        subCategory:{
+            type:String,
+            required:true
+        },
+
+        subSubCategory:{
+            type:String,
+            default:null
         },
 
         isActive: {
