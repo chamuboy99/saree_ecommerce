@@ -24,6 +24,11 @@ const sareeSchema = new mongoose.Schema(
             min: 0
         },
 
+        bestSeller: {
+            type: Boolean,
+            default: false
+        },
+
         category: {
             type: String,
             required: true,

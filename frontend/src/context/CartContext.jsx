@@ -1,9 +1,40 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 export const CartContext = createContext();
 
+
 export const CartProvider = ({ children }) => {
-    const [cart, setCart] = useState([]);
+
+    const CART_EXPIRY = 24 * 60 * 60 * 1000 * 2; // 48 hours
+    
+    const [cart, setCart] = useState(()=>{
+        const savedCart = localStorage.getItem('cart');
+        if(!savedCart) return [];
+
+        try {
+            const { cart, expiresAt } = JSON.parse(savedCart);
+
+            if (Date.now() > expiresAt) {
+                localStorage.removeItem("cart");
+                return [];
+            }
+
+            return cart;
+        } catch {
+            localStorage.removeItem("cart");
+            return [];
+        }
+    });
+
+    useEffect(() => {
+        localStorage.setItem(
+            "cart",
+            JSON.stringify({
+                cart,
+                expiresAt: Date.now() + CART_EXPIRY,
+            })
+        );
+    }, [cart]);
 
     const addToCart = (product) => {
         setCart(prev => {
@@ -18,6 +49,14 @@ export const CartProvider = ({ children }) => {
         alert(`${product.name} added to cart!`);
     }
 
+    const increaseQuantity = (id) => {
+        setCart(prev => prev.map(i => i._id === id ? { ...i, quantity: i.quantity + 1 } : i));
+    }
+
+    const decreaseQuantity = (id) => {
+        setCart(prev => prev.map(i => i._id === id ? { ...i, quantity: Math.max(1, i.quantity - 1) } : i));
+    }
+
     const removeFromCart = (id) => {
         setCart(prev => prev.filter(i => i._id !== id));
     }
@@ -25,7 +64,7 @@ export const CartProvider = ({ children }) => {
     const clearCart = () => setCart([]);
 
     return (
-        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart }}>
+        <CartContext.Provider value={{ cart, addToCart, removeFromCart, clearCart, increaseQuantity, decreaseQuantity }}>
             {children}
         </CartContext.Provider>
     );

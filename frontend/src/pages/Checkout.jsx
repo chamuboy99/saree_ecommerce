@@ -10,7 +10,7 @@ export default function Checkout() {
     const navigate = useNavigate();
     const [saree, setSaree] = useState(null);
     const [loading, setLoading] = useState(true);
-    const { cart, clearCart } = useContext(CartContext);
+    const { cart, clearCart, increaseQuantity, decreaseQuantity } = useContext(CartContext);
     const [formData, setFormData] = useState({
         customerName: "",
         phoneNumber: "",
@@ -72,11 +72,30 @@ export default function Checkout() {
             <div className="checkout-main">
                 <h1>Checkout</h1>
                 {!id ? cart.map(i => (
-                    <div key={i._id} className="checkout-item">
+                    <div key={i._id} className="checkout-item" onClick={()=>navigate(`/${i._id}`)}>
                         <img src={i.image} alt="" />
                         <div className="checkout-item-details">
                             <p><b>{i.name}</b></p>
-                            <p>Quantity: {i.quantity}</p>
+                            <div className="q-div">
+                                <span>Quantity</span>
+                                <div className="quantity-control">
+                                    <button onClick={(e) => {
+                                            e.stopPropagation();
+                                            decreaseQuantity(i._id);
+                                        }}
+                                    >
+                                        −
+                                    </button>
+                                    <span>{i.quantity}</span>
+                                    <button onClick={(e) => {
+                                            e.stopPropagation();
+                                            increaseQuantity(i._id);
+                                        }}
+                                    >
+                                        +
+                                    </button>
+                                </div>
+                            </div>
                             <p>Rs.{i.price}</p>
                             <p>Subtotal: Rs.{i.price * i.quantity}</p>
                         </div>
