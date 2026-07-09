@@ -53,7 +53,7 @@ export default function Home() {
         </div>
 
         <div className="hero-image">
-          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d" alt="Shopping"/>
+          <img src="https://unsplash.com/photos/woman-in-black-tank-top-sitting-on-couch-X4PfQ5To9bk" alt="Shopping"/>
         </div>
 
       </section>

@@ -34,7 +34,7 @@ export default function Header() {
                             }
                         }}
                     />
-                    <button className='search=btn' onClick={handleSearch}>
+                    <button className='search-btn' onClick={handleSearch}>
                         <FaSearch />
                     </button>
                 </div>
