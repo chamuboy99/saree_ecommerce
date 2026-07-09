@@ -11,8 +11,11 @@ export function FilterProvider({children}){
     const location = useLocation();
 
     useEffect(() => {
-        setFilterOpen(false);
-        setFilters({});
+        if (!location.pathname.startsWith("/dashboard")){
+            setFilterOpen(false);
+            setFilters({});
+            setSearch("");
+        }
     }, [location.pathname]);
 
     return (

@@ -6,7 +6,7 @@ import { useNavigate } from "react-router-dom";
 
 export default function CategoryFilter({ open }) {
     const [expanded, setExpanded] = useState(null);
-    const {setFilterOpen, setFilters} = useContext(FilterContext);
+    const {setFilterOpen, setFilters, setSearch} = useContext(FilterContext);
 
     const navigate = useNavigate();
 
@@ -15,6 +15,7 @@ export default function CategoryFilter({ open }) {
     };
 
     const selectCategory = (category) => {
+        setSearch("");
         if (category.name === "All") {
             setFilters({});
         
@@ -32,6 +33,7 @@ export default function CategoryFilter({ open }) {
     };
 
     const selectSubCategory = (category, sub) => {
+        setSearch("");
         setFilters({
             category: category.name,
             subCategory: sub.name
@@ -41,6 +43,7 @@ export default function CategoryFilter({ open }) {
     };
 
     const selectSubSubCategory = (category, sub, item) => {
+        setSearch("");
         setFilters({
             category: category.name,
             subCategory: sub.name,
