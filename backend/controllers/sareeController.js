@@ -47,7 +47,7 @@ export const getAllSarees = async (req, res) => {
             filter.subSubCategory = subSubCategory;
         }
 
-        if (bestSeller === true) {
+        if (bestSeller === "true") {
             filter.bestSeller = true;
         }
 
