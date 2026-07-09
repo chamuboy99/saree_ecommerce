@@ -1,155 +1,225 @@
-.home-main {
+.home-page {
     min-height: 100vh;
-    background: linear-gradient(135deg, #0f172a, #1e293b);
-    padding: clamp(1rem, 3vw, 3rem);
+    background: #f8fafc;
+    font-family: Arial, sans-serif;
 }
 
-.home-main h1 {
-    color: #fff;
-    text-align: center;
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    margin-bottom: 2rem;
-    letter-spacing: 1px;
-}
+/* HERO */ 
 
-/* Product Grid */
-.products {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.8rem;
-    max-width: 1400px;
-    margin: auto;
-}
-
-/* Product Card */
-.products > div {
+.hero {
     display: flex;
-    flex-direction: column;
-    background: rgba(255, 255, 255, 0.06);
-    backdrop-filter: blur(16px);
-    border: 1px solid rgba(255,255,255,0.08);
-    border-radius: 18px;
-    overflow: hidden;
-    transition: all .3s ease;
-    box-shadow: 0 12px 30px rgba(0,0,0,.25);
-}
-
-.products > div:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 45px rgba(0,0,0,.4);
-}
-
-/* Image */
-.products > div img {
-    width: 100%;
-    aspect-ratio: 4 / 5;
-    object-fit: cover;
-    transition: transform .4s ease;
-}
-
-.products > div:hover img {
-    transform: scale(1.05);
-}
-
-/* Content */
-.products > div h2 {
-    color: #fff;
-    font-size: 1.2rem;
-    font-weight: 600;
-    margin: 1rem 1rem .4rem;
-    line-height: 1.4;
-}
-
-.products > div p {
-    margin: 0 1rem 1rem;
-    color: #22c55e;
-    font-size: 1.15rem;
-    font-weight: 700;
-}
-
-
-.products > div button {
-    margin: auto 1rem 1rem;
-    height: 45px;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    background: linear-gradient(135deg, #f97316, #ef4444);
-    color: white;
-    font-size: 1rem;
-    font-weight: 600;
-    transition: all .25s ease;
-}
-
-.products > div button:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 10px 20px rgba(239,68,68,.35);
-}
-
-.products > div button:active {
-    transform: scale(.98);
-}
-
-/* Tablet */
-@media (max-width: 768px) {
-    .home-main {
-        padding: 1.2rem;
-    }
-
-    .products {
-        gap: 1.2rem;
-    }
-}
-
-.loader-container {
-    display: flex;
-    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    height: 300px;
+    justify-content: space-between;
+    gap: 40px;
+    padding: 40px 5%;
+    background: linear-gradient(135deg,#4f46e5,#9333ea);
     color: white;
 }
 
-.loader {
-    width: 50px;
-    height: 50px;
-    border: 5px solid #eee;
-    border-top: 5px solid #d63384;
-    border-radius: 50%;
-    animation: spin 1s linear infinite;
-    margin-bottom: 1rem;
+.hero-content {
+    max-width: 550px;
 }
 
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
+.hero h1 {
+    font-size: 52px;
+    line-height: 1.15;
+    margin-bottom: 25px;
+}
+
+
+.hero p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #e0e7ff;
+}
+
+.primary-btn {
+    margin-top: 30px;
+    padding: 14px 35px;
+    border-radius: 30px;
+    border: none;
+    background: white;
+    color: #4f46e5;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: .3s;
+}
+
+.primary-btn:hover {
+    transform: translateY(-3px);
+}
+
+.hero-image img {
+    width: 450px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.25);
+}
+
+/* BEST SELLERS */
+.best-sellers {
+    padding:0 5% 40px;
+}
+
+.section-header {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding: 2% 0%;
+}
+
+.section-header h2 {
+    text-align: center;
+    font-size: 36px;
+}
+
+.view-all {
+    border:none;
+    background:none;
+    color:#4f46e5;
+    font-size:16px;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+.product-grid {
+    display:grid;
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+}
+
+.product-card {
+    position: relative;
+    background:white;
+    border-radius:20px;
+    overflow:hidden;
+    box-shadow:0 10px 25px rgba(0,0,0,.1);
+    transition:.3s;
+}
+
+.product-card:hover {
+    transform:translateY(-3px);
+}
+
+.product-card img {
+    width:100%;
+    aspect-ratio: 1;
+    object-fit:cover;
+}
+
+.product-info {
+    padding:15px;
+}
+
+.product-info h3 {
+    font-size: 16px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-info p {
+    color:#64748b;
+    margin-top:10px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.product-footer {
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-top:10px;
+}
+
+.product-footer span {
+    font-size:22px;
+    font-weight:bold;
+    color:#4f46e5;
+}
+
+.product-footer button {
+    background:#4f46e5;
+    color:white;
+    border:none;
+    padding:10px 20px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.empty {
+    text-align:center;
+    color:#64748b;
+}
+
+/* Features */
+.features {
+    padding: 0 5% 40px;
+}
+
+.features h2 {
+    text-align: center;
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3,1fr);
+    gap: 30px;
+}
+
+.feature-card {
+    background:white;
+    padding:30px;
+    border-radius:20px;
+    box-shadow:0 10px 25px rgba(0,0,0,.08);
+    transition:.3s;
+}
+
+.feature-card:hover {
+    transform:translateY(-8px);
+}
+
+.feature-card h3 {
+    margin-bottom:15px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:900px){
+    .hero {
+        flex-direction:column;
+        text-align:center;
     }
 
-    100% {
-        transform: rotate(360deg);
+    .hero h1 {
+        font-size:40px;
+    }
+
+    .hero-image {
+        display: none;
+    }
+
+    .feature-grid,
+    .product-grid {
+        grid-template-columns:1fr 1fr;
     }
 }
 
-/* Mobile */
-@media (max-width: 480px) {
-    .home-main h1 {
-        margin-bottom: 1.5rem;
+@media(max-width:520px){
+    .section-header {
+        padding: 20px 0%;
     }
 
-    .products {
-        grid-template-columns: 1fr;
+    .section-header h2,
+    .features h2{
+        font-size: 26px;
     }
 
-    .products > div h2 {
-        font-size: 1.1rem;
-    }
-
-    .products > div p {
-        font-size: 1rem;
-    }
-
-    .home-main button {
-        height: 42px;
+    .feature-grid,
+    .product-grid {
+        grid-template-columns:1fr;
     }
 }

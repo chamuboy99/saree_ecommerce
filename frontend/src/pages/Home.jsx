@@ -1,95 +1,108 @@
-import { useCallback, useContext, useEffect, useState } from "react";
-import axios from 'axios';
-import { CartContext } from "../context/CartContext.jsx";
-import '../styles/home.css';
-import Header from "../components/Header.jsx";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import CategoryFilter from "../components/CategoryFilter.jsx";
+import "../styles/home.css";
+import axios from "axios";
+import Header from "../components/Header";
+import Footer from "../components/Footer";
 
 export default function Home() {
-    const [products, setProducts] = useState([]);
-    const [loading, setLoading] = useState(true);
-    const [filterOpen, setFilterOpen] = useState(false);
-    const [filters, setFilters] = useState({});
+  const navigate = useNavigate();
 
-    const { addToCart } = useContext(CartContext);
-    const navigate = useNavigate();
+  const [bestSellers, setBestSellers] = useState([]);
 
-    const fetchProducts = useCallback(async (currentFilters = {}) => {
-        try {
-            setLoading(true);
-
-            const res = await axios.get(
-                `${process.env.REACT_APP_API_URL}/api/sarees`,
-                {
-                    params: currentFilters
-                }
-            );
-
-            setProducts(res.data);
-        } catch (err) {
-            console.error("Failed to fetch products:", err);
-            setProducts([]);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
-
-    useEffect(() => {
-        fetchProducts(filters);
-    }, [fetchProducts, filters]);
-
-    const handleFilter = (newFilters) => {
-        setFilters(newFilters);
-        setFilterOpen(false);
+  useEffect(() => {
+    const fetchBestSellers = async () => {
+      try {
+        const res = await axios.get(`${process.env.REACT_APP_API_URL}/api/sarees`);
+        const sellers = res.data.filter(item => item.bestSeller === true );
+        setBestSellers(sellers.slice(0, 6));
+        console.log(sellers);
+      } catch (error) {
+        console.error("Failed to fetch products", error.message);
+      }
     };
 
-    const clearFilters = () => {
-        setFilters({});
-        setFilterOpen(false);
-    };
+    fetchBestSellers();
+  }, []);
 
-    return (
-        <>
-            <Header
-                filterOpen={filterOpen}
-                setFilterOpen={setFilterOpen}
-            />
 
-            <CategoryFilter
-                open={filterOpen}
-                onFilter={handleFilter}
-                clearFilters={clearFilters}
-            />
+  return (
+    <>
+    <Header/>
+    <div className="home-page">
 
-            <div className="home-main">
-                <h1>Saree Collection</h1>
+      {/* Hero Section */}
+      <section className="hero">
+        
+        <div className="hero-content">
+          <h1>Discover Sarees <br/> You'll Love </h1>
+          <p>
+            Explore premium quality sarees carefully selected
+            for you. Enjoy a simple, secure and enjoyable shopping
+            experience.
+          </p>
+          <button className="primary-btn" onClick={() => navigate("/dashboard")}>Buy Sarees </button>
+        </div>
 
-                {loading ? (
-                    <div className="loader-container">
-                        <div className="loader"></div>
-                        <p>Loading Sarees...</p>
-                    </div>
-                ) : (
-                    <div className="products">
-                        {products.map((p) => (
-                            <div key={p._id} onClick={() => navigate(`/${p._id}`)}>
-                                <img src={p.image} alt={p.name} />
-                                <h2>{p.name}</h2>
-                                <p> <b>Rs. {p.price}</b></p>
+        <div className="hero-image">
+          <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d" alt="Shopping"/>
+        </div>
 
-                                <button onClick={(e) => {
-                                        e.stopPropagation();
-                                        addToCart(p);
-                                    }}
-                                >
-                                    Add to Cart
-                                </button>
-                            </div>
-                        ))}
-                    </div>
-                )}
+      </section>
+
+      {/* Best Sellers */}
+      <section className="best-sellers">
+        <div className="section-header">
+          <h2> Best Sellers </h2>
+          <button className="view-all" onClick={() => navigate("/dashboard")}> View All → </button>
+        </div>
+
+        <div className="product-grid">
+          {bestSellers.map(product => (
+            <div className="product-card" key={product._id}>
+              <span className="best-seller-badge">
+                  Best Seller
+              </span>
+              <img src={product.image} alt={product.name}/>
+              
+              <div className="product-info">
+                <h3> {product.name} </h3>
+                <p>{product.category} {product.subCategory} {product.subSubCategory}</p>
+
+                <div className="product-footer">
+                  <span> Rs.{product.price} </span>
+                  <button onClick={() => navigate(`/${product._id}`)}> View</button>
+                </div>
+
+              </div>
             </div>
-        </>
-    );
+          ))}
+        </div>
+        { bestSellers.length === 0 && <p className="empty"> No best sellers available.</p>}
+      </section>
+
+      {/* Features */}
+      <section className="features">
+        <h2> Why Shop With Us? </h2>
+
+        <div className="feature-grid">
+            <div className="feature-card">
+                <h3>Premium Quality</h3>
+                <p>Carefully selected products with excellent quality.</p>
+            </div>
+            <div className="feature-card">
+                <h3>Fast Delivery</h3>
+                <p>Quick and reliable delivery to your doorstep.</p>
+            </div>
+            <div className="feature-card">
+                <h3>Secure Payments</h3>
+                <p>Safe payment methods with customer protection.</p>
+            </div>
+        </div>
+      </section>
+
+    </div>
+    <Footer/>
+    </>
+  );
 }

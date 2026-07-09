@@ -56,7 +56,7 @@ export default function Checkout() {
 
         alert("Order placed successfully!");
         clearCart();
-        navigate('/');
+        navigate('/dashboard');
     }
 
     const handleChange = (e) => {
