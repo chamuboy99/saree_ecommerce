@@ -6,6 +6,7 @@ export const FilterContext = createContext();
 export function FilterProvider({children}){
     const [filterOpen, setFilterOpen] = useState(false);
     const [filters, setFilters] = useState({});
+    const [search, setSearch] = useState("");
 
     const location = useLocation();
 
@@ -15,7 +16,7 @@ export function FilterProvider({children}){
     }, [location.pathname]);
 
     return (
-        <FilterContext.Provider value={{filterOpen, setFilterOpen, filters, setFilters}}>
+        <FilterContext.Provider value={{filterOpen, setFilterOpen, filters, setFilters, search, setSearch}}>
             {children}
         </FilterContext.Provider>
     );

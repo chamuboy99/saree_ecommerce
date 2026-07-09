@@ -29,7 +29,7 @@ export const addSaree = async (req, res) => {
 
 export const getAllSarees = async (req, res) => {
     try {
-        const { category, subCategory, subSubCategory, bestSeller } = req.query;
+        const { category, subCategory, subSubCategory, bestSeller, search } = req.query;
         
         const filter = {
             isActive: true
@@ -49,6 +49,36 @@ export const getAllSarees = async (req, res) => {
 
         if (bestSeller === "true") {
             filter.bestSeller = true;
+        }
+
+        // Search filter
+        if (search) {
+            filter.$or = [
+                {
+                    name: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                },
+                {
+                    category: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                },
+                {
+                    subCategory: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                },
+                {
+                    subSubCategory: {
+                        $regex: search,
+                        $options: "i"
+                    }
+                }
+            ];
         }
 
         const sarees = await Saree.find(filter);

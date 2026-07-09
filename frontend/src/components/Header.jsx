@@ -1,12 +1,19 @@
-import { useContext } from 'react';
+import { useContext, useState } from 'react';
 import '../styles/header.css';
 import { FaHome, FaShoppingCart, FaBars, FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import { FilterContext } from '../context/FilterContext';
 
 export default function Header() {
-    const {filterOpen, setFilterOpen} = useContext(FilterContext);
+    const {filterOpen, setFilterOpen, setSearch} = useContext(FilterContext);
     const navigate = useNavigate();
+    const [searchInput, setSearchInput] = useState("");
+
+    const handleSearch = () => {
+        setSearch(searchInput.toLowerCase().trim());
+        setFilterOpen(false);
+        navigate('/dashboard');
+    }
     return (
         <header className="header">
             <div className="header-container">
@@ -19,9 +26,17 @@ export default function Header() {
                     <input 
                         className="search-input" 
                         placeholder="Search products..." 
-                        type="text"
+                        value={searchInput}
+                        onChange={(e)=>setSearchInput(e.target.value)}
+                        onKeyDown={(e)=>{
+                            if(e.key === "Enter"){
+                                handleSearch();
+                            }
+                        }}
                     />
-                    <FaSearch />
+                    <button className='search=btn' onClick={handleSearch}>
+                        <FaSearch />
+                    </button>
                 </div>
 
                 <div className="navi-buttons">

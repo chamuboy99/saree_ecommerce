@@ -12,7 +12,7 @@ export default function Dashboard() {
     const [loading, setLoading] = useState(true);
 
     const { addToCart } = useContext(CartContext);
-    const { filters, filterOpen } = useContext(FilterContext);
+    const { filters, filterOpen, search } = useContext(FilterContext);
 
     const navigate = useNavigate();
 
@@ -30,8 +30,11 @@ export default function Dashboard() {
     }, []);
 
     useEffect(() => {
-        fetchProducts(filters);
-    }, [fetchProducts, filters]);
+        fetchProducts({
+            ...filters,
+            search
+        });
+    }, [fetchProducts, filters, search]);
 
     return (
         <>
