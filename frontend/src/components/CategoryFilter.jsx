@@ -17,6 +17,11 @@ export default function CategoryFilter({ open }) {
     const selectCategory = (category) => {
         if (category.name === "All") {
             setFilters({});
+        
+        } else if (category.name === "Best Sellers") {
+            setFilters({
+                bestSeller: true
+            });
         } else {
             setFilters({
                 category: category.name

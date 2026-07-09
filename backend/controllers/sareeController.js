@@ -29,7 +29,7 @@ export const addSaree = async (req, res) => {
 
 export const getAllSarees = async (req, res) => {
     try {
-        const { category, subCategory, subSubCategory } = req.query;
+        const { category, subCategory, subSubCategory, bestSeller } = req.query;
         
         const filter = {
             isActive: true
@@ -46,6 +46,11 @@ export const getAllSarees = async (req, res) => {
         if (subSubCategory) {
             filter.subSubCategory = subSubCategory;
         }
+
+        if (bestSeller === true) {
+            filter.bestSeller = true;
+        }
+
         const sarees = await Saree.find(filter);
         res.status(200).json(sarees);
     } catch (error) {

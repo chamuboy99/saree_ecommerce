@@ -55,5 +55,9 @@ export const categories = [
                 name: "Super Voil Embroider"
             }
         ]
+    },
+
+    {
+        name: "Best Sellers"
     }
 ];
