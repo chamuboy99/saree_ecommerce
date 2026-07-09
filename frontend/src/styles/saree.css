@@ -70,13 +70,12 @@
 .cb-btns {
     display: flex;
     gap: 1rem;
-    flex-wrap: wrap;
     margin-top: 1rem;
 }
 
 .cb-btns button {
     flex: 1;
-    min-width: 180px;
+    min-width: 120px;
     display: flex;
     justify-content: center;
     align-items: center;
@@ -142,6 +141,10 @@
         text-align: center;
     }
 
+    .saree-details > div:last-child{
+        gap: 0.5rem;
+    }
+
     .saree-details img {
         width: 100%;
     }
@@ -159,15 +162,20 @@
         border-radius: 18px;
     }
 
-    .saree-details img {
-        width: 100%;
-    }
-
-    .cb-btns {
-        flex-direction: column;
-    }
-
     .cb-btns button {
-        width: 100%;
+        padding: 0.8rem 1.2rem;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+
+}
+
+@media (max-width: 430px) {
+    .cb-btns button {
+        gap: .6rem;
+        padding: 0.6rem 0.9rem;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
     }
 }
