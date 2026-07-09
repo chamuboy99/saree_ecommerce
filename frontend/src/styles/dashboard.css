@@ -7,8 +7,8 @@
 /* Product Grid */
 .products {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-    gap: 1.8rem;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 1.2rem;
     max-width: 1400px;
     margin: auto;
 }
@@ -67,15 +67,17 @@
     font-weight: 600;
     margin: 1rem 1rem .4rem;
     line-height: 1.4;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .products > div p {
     margin: 0 1rem 1rem;
-    color: #22c55e;
+    color: #75cdf4;
     font-size: 1.15rem;
     font-weight: 700;
 }
-
 
 .products > div button {
     margin: auto 1rem 1rem;
@@ -97,17 +99,6 @@
 
 .products > div button:active {
     transform: scale(.98);
-}
-
-/* Tablet */
-@media (max-width: 768px) {
-    .home-main {
-        padding: 1.2rem;
-    }
-
-    .products {
-        gap: 1.2rem;
-    }
 }
 
 .loader-container {
@@ -139,22 +130,53 @@
     }
 }
 
+@media (max-width: 1000px) {
+   .products > div h2{
+        font-size: 1rem;
+        font-weight: 500;
+    } 
+
+    .products > div p{
+        font-size: 1rem;
+        font-weight: 600;
+    }
+}
+
+/* Tablet */
+@media (max-width: 768px) {
+    .home-main {
+        padding: 1.2rem;
+    }
+
+    .products {
+        gap: 0.6rem;
+    }
+
+    .products > div h2{
+        font-size: 1rem;
+        font-weight: 400;
+    }
+
+    .products > div button {
+        height: 36px;
+        font-size: 0.9rem;
+        font-weight: 500;
+    }
+}
+
 /* Mobile */
 @media (max-width: 480px) {
     .home-main h1 {
         margin-bottom: 1.5rem;
     }
 
-    .products {
-        grid-template-columns: 1fr;
-    }
-
-    .products > div h2 {
-        font-size: 1.1rem;
+    .products > div h2{
+        font-size: 0.8rem;
+        font-weight: 400;
     }
 
     .products > div p {
-        font-size: 1rem;
+        font-size: 0.9rem;
     }
 
     .home-main button {
