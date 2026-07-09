@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { categories } from "../constants/categories.js";
 import '../styles/categoryfilter.css';
+import { FilterContext } from "../context/FilterContext.jsx";
+import { useNavigate } from "react-router-dom";
 
-export default function CategoryFilter({ open, onFilter }) {
+export default function CategoryFilter({ open }) {
     const [expanded, setExpanded] = useState(null);
+    const {setFilterOpen, setFilters} = useContext(FilterContext);
+
+    const navigate = useNavigate();
 
     const toggleCategory = (index) => {
         setExpanded(expanded === index ? null : index);
@@ -11,28 +16,35 @@ export default function CategoryFilter({ open, onFilter }) {
 
     const selectCategory = (category) => {
         if (category.name === "All") {
-            onFilter({});
-            return;
+            setFilters({});
+        } else {
+            setFilters({
+                category: category.name
+            });
         }
-        onFilter({
-            category: category.name
-        });
+        setFilterOpen(false);
+        navigate("/dashboard");
     };
 
     const selectSubCategory = (category, sub) => {
-        onFilter({
+        setFilters({
             category: category.name,
             subCategory: sub.name
         });
+        setFilterOpen(false);
+        navigate("/dashboard");
     };
 
     const selectSubSubCategory = (category, sub, item) => {
-        onFilter({
+        setFilters({
             category: category.name,
             subCategory: sub.name,
             subSubCategory: item
         });
+        setFilterOpen(false);
+        navigate("/dashboard");
     };
+    
 
     if (!open) return null;
 

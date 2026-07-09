@@ -4,10 +4,12 @@ import { CartContext } from "../context/CartContext.jsx";
 import '../styles/cart.css';
 import Header from "../components/Header.jsx";
 import { FaTrash } from "react-icons/fa";
-
+import { FilterContext } from "../context/FilterContext.jsx";
+import CategoryFilter from "../components/CategoryFilter.jsx";
 
 export default function Cart() {
     const { cart, removeFromCart, increaseQuantity, decreaseQuantity } = useContext(CartContext);
+    const { filterOpen } = useContext(FilterContext);
     const navigate = useNavigate();
 
     useEffect(()=>{
@@ -19,6 +21,9 @@ export default function Cart() {
     return (
         <>
             <Header />
+            <CategoryFilter
+                open={filterOpen}
+            />
             <div className="cart-main">
                 <h1>Cart</h1>
 

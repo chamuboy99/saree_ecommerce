@@ -1,8 +1,11 @@
+import { useContext } from 'react';
 import '../styles/header.css';
 import { FaHome, FaShoppingCart, FaBars, FaSearch } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
+import { FilterContext } from '../context/FilterContext';
 
-export default function Header({filterOpen, setFilterOpen}) {
+export default function Header() {
+    const {filterOpen, setFilterOpen} = useContext(FilterContext);
     const navigate = useNavigate();
     return (
         <header className="header">

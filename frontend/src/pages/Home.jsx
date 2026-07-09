@@ -1,14 +1,18 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/home.css";
 import axios from "axios";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import CategoryFilter from "../components/CategoryFilter";
+import { FilterContext } from "../context/FilterContext";
 
 export default function Home() {
   const navigate = useNavigate();
 
   const [bestSellers, setBestSellers] = useState([]);
+
+  const {filterOpen, clearFilters} = useContext(FilterContext);
 
   useEffect(() => {
     const fetchBestSellers = async () => {
@@ -29,6 +33,10 @@ export default function Home() {
   return (
     <>
     <Header/>
+    <CategoryFilter
+        open={filterOpen}
+        clearFilters={clearFilters}
+    />
     <div className="home-page">
 
       {/* Hero Section */}

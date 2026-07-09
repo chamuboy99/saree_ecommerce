@@ -4,6 +4,8 @@ import axios from 'axios';
 import { CartContext } from "../context/CartContext.jsx";
 import '../styles/checkout.css';
 import Header from "../components/Header.jsx";
+import { FilterContext } from "../context/FilterContext.jsx";
+import CategoryFilter from "../components/CategoryFilter.jsx";
 
 export default function Checkout() {
     const { id } = useParams();
@@ -11,6 +13,7 @@ export default function Checkout() {
     const [saree, setSaree] = useState(null);
     const [loading, setLoading] = useState(true);
     const { cart, clearCart, increaseQuantity, decreaseQuantity } = useContext(CartContext);
+    const { filterOpen } = useContext(FilterContext);
     const [formData, setFormData] = useState({
         customerName: "",
         phoneNumber: "",
@@ -69,6 +72,9 @@ export default function Checkout() {
     return (
         <>
             <Header />
+            <CategoryFilter
+                open={filterOpen}
+            />
             <div className="checkout-main">
                 <h1>Checkout</h1>
                 {!id ? cart.map(i => (

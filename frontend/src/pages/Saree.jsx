@@ -5,12 +5,15 @@ import Header from "../components/Header";
 import { FaShoppingBag, FaShoppingCart } from "react-icons/fa";
 import '../styles/saree.css';
 import { CartContext } from "../context/CartContext";
+import { FilterContext } from "../context/FilterContext.jsx";
+import CategoryFilter from "../components/CategoryFilter.jsx";
 
 export default function Saree() {
     const { id } = useParams();
     const [saree, setSaree] = useState(null);
     const [loading, setLoading] = useState(true);
     const { addToCart } = useContext(CartContext);
+    const { filterOpen } = useContext(FilterContext);
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -29,6 +32,9 @@ export default function Saree() {
     return (
         <>
             <Header />
+            <CategoryFilter
+                open={filterOpen}
+            />
             <div className="saree-main">
                 <div>
                     {loading ? (
