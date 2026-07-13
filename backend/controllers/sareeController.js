@@ -12,6 +12,13 @@ export const addSaree = async (req, res) => {
             })
         }
 
+        if((subCategory === "Normal Oil" || subCategory === "Super Oil") && !subSubCategory){
+            return res.status(400).json({
+                success:false,
+                message: "Missing Sub Sub Category"
+            })
+        }
+
         if (!imageUrl) {
             return res.status(400).json({
                 success: false,
