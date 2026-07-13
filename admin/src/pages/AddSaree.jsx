@@ -54,7 +54,7 @@ export default function AddSarees() {
                     }
                 }
             );
-            alert("Saree added successfully");
+            alert(res.data.message);
             setFormData({
                 name: "",
                 description: "",

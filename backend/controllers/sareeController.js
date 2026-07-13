@@ -6,7 +6,7 @@ export const addSaree = async (req, res) => {
         const {name, price, category, subCategory, subSubCategory} = req.body;
 
         if(!name || !price || !category || !subCategory) {
-            return res.json({
+            return res.status(400).json({
                 success:false,
                 message: "Missing required data"
             })
@@ -22,17 +22,19 @@ export const addSaree = async (req, res) => {
         const sareeData = {
             ...req.body,
             image: imageUrl,
-
             price: Number(price),
             bestSeller: req.body.bestSeller === "true",
             isActive: req.body.isActive === "true",
-
             subSubCategory: subSubCategory || null
         };
 
         const saree = await Saree.create(sareeData);
         
-        res.status(201).json(saree);
+        res.status(201).json({
+            success: true,
+            message: "Saree added successfully",
+            saree
+        });
     } catch (error) {
         res.status(500).json({
             success: false,
