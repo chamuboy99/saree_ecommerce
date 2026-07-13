@@ -3,6 +3,14 @@ import Saree from '../models/sarees.js';
 export const addSaree = async (req, res) => {
     try {
         const imageUrl = req.file?.path;
+        const {name, price, category, subCategory, subSubCategory} = req.body;
+
+        if(!name || !price || !category || !subCategory) {
+            return res.json({
+                success:false,
+                message: "Missing required data"
+            })
+        }
 
         if (!imageUrl) {
             return res.status(400).json({
@@ -13,7 +21,13 @@ export const addSaree = async (req, res) => {
 
         const sareeData = {
             ...req.body,
-            image: imageUrl
+            image: imageUrl,
+
+            price: Number(price),
+            bestSeller: req.body.bestSeller === "true",
+            isActive: req.body.isActive === "true",
+
+            subSubCategory: subSubCategory || null
         };
 
         const saree = await Saree.create(sareeData);
