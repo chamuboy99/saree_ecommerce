@@ -19,6 +19,7 @@ export default function AddSarees() {
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [selectedSubCategory, setSelectedSubCategory] = useState(null);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
     const handleChange = (e) => {
         const { name, value, type, checked, files } = e.target;
@@ -39,6 +40,7 @@ export default function AddSarees() {
 
     const addSaree = async () => {
         try {
+            setLoading(true);
             setError("");
             const data = new FormData();
             const token = localStorage.getItem("token");
@@ -66,16 +68,20 @@ export default function AddSarees() {
                 isActive: true,
                 image: null
             });
+            setPreview(null);
             document.getElementById("image").value = "";
             setSelectedCategory(null);
             setSelectedSubCategory(null);
         } catch (err) {
+            setLoading(false);
             if (err.response) {
                 setError( err.response.data.message || "Failed to add saree" );
             } else {
                 setError("Unable to connect to server");
             }
             console.error(err);
+        } finally {
+            setLoading(false);
         }
     }
 
@@ -145,7 +151,11 @@ export default function AddSarees() {
                     )}
                     <div>
                         <label>Description:</label>
-                        <input type="text" name="description" value={formData.description} onChange={handleChange} />
+                        <textarea name="description" value={formData.description} rows={1} style={{ resize: "none", overflow: "hidden" }} onChange={e => {
+                            handleChange(e);
+                            e.target.style.height = "auto";
+                            e.target.style.height = `${e.target.scrollHeight}px`
+                        }} />
                     </div>
                     <div className="best-seller-div">
                         <label>Best Seller</label>
@@ -157,7 +167,7 @@ export default function AddSarees() {
                     </div>
                     { preview && <img src={preview} width="150" />}
                     { error && <p className="form-error">{error}</p>}
-                    <button onClick={() => addSaree()}>Add Saree</button>
+                    <button onClick={() => addSaree()} disabled={loading} className={loading ? "loading" : ""}>{loading ? "Adding Saree..." : "Add Saree"}</button>
                 </div>
             </div>
         </>

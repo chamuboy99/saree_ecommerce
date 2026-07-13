@@ -51,7 +51,8 @@
 
 /* Inputs and selects */
 .add-saree-main input:not([type="checkbox"]),
-.add-saree-main select {
+.add-saree-main select,
+.add-saree-main textarea {
     width: 100%;
     padding: 0.85rem 1rem;
     border-radius: 12px;
@@ -69,7 +70,8 @@
 }
 
 .add-saree-main input:focus,
-.add-saree-main select:focus {
+.add-saree-main select:focus,
+.add-saree-main textarea:focus {
     border-color: #818cf8;
     background: rgba(255,255,255,0.18);
     box-shadow:
@@ -133,7 +135,14 @@
     font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.add-saree-main button.loading {
+    cursor: wait;
+    opacity: 0.8;
 }
 
 .add-saree-main button:hover {
