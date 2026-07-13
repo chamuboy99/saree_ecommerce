@@ -1,18 +1,20 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
 import '../styles/sarees.css';
+import { FaEdit, FaTrash, FaSpinner  } from "react-icons/fa";
+import { useParams } from "react-router-dom";
+import Swal from "sweetalert2";
 
-export default function Sarees(){
+export default function Sarees() {
+    const { id } = useParams();
     const [sarees, setSarees] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    useEffect(()=>{
-        async function fetchSarees(){
-             try {
+    useEffect(() => {
+        async function fetchSarees() {
+            try {
                 setLoading(true);
-                const res = await axios.get(
-                    `${import.meta.env.VITE_API_URL}/api/sarees`
-                );
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/sarees`);
                 setSarees(res.data);
             } catch (error) {
                 console.error(error);
@@ -21,7 +23,52 @@ export default function Sarees(){
             }
         }
         fetchSarees();
-    },[]);
+    }, []);
+
+    const deleteSaree = async (id) => {
+        const result = await Swal.fire({
+            title: "Delete this item?",
+            text: "This action cannot be undone.",
+            icon: "warning",
+            showCancelButton: true,
+            confirmButtonColor: "#e53935",
+            cancelButtonColor: "#6c757d",
+            confirmButtonText: "Delete",
+            cancelButtonText: "Cancel",
+        });
+
+        if (!result.isConfirmed) return;
+
+        try {
+            const token = localStorage.getItem("token");
+            await axios.delete(`${import.meta.env.VITE_API_URL}/api/sarees/${id}`,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            setSarees((prev) => prev.filter((item) => item._id !== id));
+
+            await Swal.fire({
+                icon: "success",
+                title: "Deleted!",
+                text: "The item has been deleted successfully.",
+                timer: 1800,
+                showConfirmButton: false,
+            });
+
+        } catch (err) {
+            Swal.fire({
+                icon: "error",
+                title: "Oops!",
+                text: "Something went wrong while deleting.",
+            });
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="sarees-main">
@@ -30,35 +77,30 @@ export default function Sarees(){
                     <div className="loader"></div>
                     <p>Loading Sarees...</p>
                 </div>
-            ) : ( 
+            ) : (
                 <div className="sarees-grid">
-                    {sarees.length === 0 ? <p className="no-items">No items found</p> :sarees.map((saree) => (
-                        <div className="saree-card" key={saree._id}>
-                            <img
-                                src={saree.image}
-                                alt={saree.name}
-                                className="saree-image"
-                            />
-
-                            <div className="card-content">
-                                <h2>{saree.name}</h2>
-
-                                <p className="category">
-                                    {saree.category}
-                                    {saree.subCategory && ` • ${saree.subCategory}`}
-                                    {saree.subSubCategory && ` • ${saree.subSubCategory}`}
-                                </p>
-
-                                <p className="price">
-                                    Rs. {saree.price.toLocaleString()}
-                                </p>
-
-                                <button className="edit-btn">
-                                    Edit
-                                </button>
+                    {sarees.length === 0 ? <p className="no-items">No items found</p>
+                        : sarees.map((saree) => (
+                            <div className="saree-card" key={saree._id}>
+                                <img src={saree.image} alt={saree.name} className="saree-image" />
+                                <div className="card-content">
+                                    <h2>{saree.name}</h2>
+                                    <p className="category">
+                                        {saree.category}
+                                        {saree.subCategory && ` • ${saree.subCategory}`}
+                                        {saree.subSubCategory && ` • ${saree.subSubCategory}`}
+                                    </p>
+                                    <p className="price"> Rs. {saree.price.toLocaleString()} </p>
+                                    <div className="btn-container">
+                                        <button className="ctrl-btn"> <FaEdit /> </button>
+                                        <button className="ctrl-btn" onClick={e=>{
+                                            e.stopPropagation();
+                                            deleteSaree(saree._id);
+                                        }}> <FaTrash /> </button>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
-                    ))}
+                        ))}
                 </div>
             )}
         </div>

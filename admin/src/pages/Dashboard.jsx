@@ -10,13 +10,9 @@ export default function Dashboard(){
                 <p>Manage your saree collection with ease.</p>
 
                 <div className="dashboard-buttons">
-                    <button onClick={() => navigate("/sarees")}>
-                        View Items
-                    </button>
-
-                    <button onClick={() => navigate("/add-sarees")}>
-                        Add Item
-                    </button>
+                    <button onClick={() => navigate("/sarees")}> View Items </button>
+                    <button onClick={() => navigate("/add-sarees")}> Add Item </button>
+                    <button onClick={() => navigate("/orders")}> Orders </button>
                 </div>
             </div>
         </div>

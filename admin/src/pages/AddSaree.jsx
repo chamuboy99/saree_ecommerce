@@ -2,6 +2,7 @@ import axios from "axios";
 import { useState } from "react";
 import { categories } from '../constants/categories.js';
 import '../styles/addsarees.css';
+import Swal from "sweetalert2";
 
 export default function AddSarees() {
     const [formData, setFormData] = useState({
@@ -56,7 +57,15 @@ export default function AddSarees() {
                     }
                 }
             );
-            alert(res.data.message);
+
+            await Swal.fire({
+                icon: "success",
+                title: "Saree Added!",
+                text: "The item has been added successfully.",
+                timer: 1800,
+                showConfirmButton: false,
+            });
+
             setFormData({
                 name: "",
                 description: "",

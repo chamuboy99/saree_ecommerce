@@ -69,20 +69,33 @@
     color:#d6336c;
 }
 
-.edit-btn{
-    margin-top:10px;
-    border:none;
-    padding:12px;
+.btn-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.6rem;
+}
+
+.ctrl-btn{
+    border: 1px solid black;
+    width: 100%;
+    padding:9px;
     border-radius:10px;
+    background: transparent;
     cursor:pointer;
-    background:#111827;
-    color:white;
-    font-size:.95rem;
+    color:rgb(0, 0, 0);
+    font-size:1rem;
     transition:.2s;
 }
 
-.edit-btn:hover{
-    background:#374151;
+
+.ctrl-btn:first-child:hover{
+    background-color: #323bea;
+    color: white;
+}
+
+.ctrl-btn:last-child:hover{
+    background-color: #f02525;
+    color: white;
 }
 
 .loader-container {
@@ -145,5 +158,10 @@
 
     .edit-btn{
         width:100%;
+    }
+
+    .ctrl-btn{
+        padding: 5px;
+        font-size: 0.9rem;
     }
 }
