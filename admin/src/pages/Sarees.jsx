@@ -5,6 +5,7 @@ import { FaEdit, FaTrash, FaSpinner  } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import EditSareeModal from "../components/EditSareeModal.jsx";
+import Header from "../components/Header.jsx";
 
 export default function Sarees() {
     const { id } = useParams();
@@ -75,6 +76,7 @@ export default function Sarees() {
 
     return (
         <>
+        <Header/>
         <div className="sarees-main">
             {loading ? (
                 <div className="loader-container">

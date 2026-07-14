@@ -1,9 +1,12 @@
 import { useNavigate } from "react-router-dom";
 import '../styles/dashboard.css';
+import Header from "../components/Header.jsx";
 
 export default function Dashboard(){
     const navigate = useNavigate();
     return (
+        <>
+        <Header/>
         <div className="admin-dashboard-main">
             <div className="dashboard-card">
                 <h1>Admin Dashboard</h1>
@@ -16,5 +19,6 @@ export default function Dashboard(){
                 </div>
             </div>
         </div>
+        </>
     );
 }

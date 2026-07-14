@@ -3,6 +3,7 @@ import { useState } from "react";
 import { categories } from '../constants/categories.js';
 import '../styles/addsarees.css';
 import Swal from "sweetalert2";
+import Header from "../components/Header.jsx";
 
 export default function AddSarees() {
     const [formData, setFormData] = useState({
@@ -96,6 +97,7 @@ export default function AddSarees() {
 
     return (
         <>
+            <Header/>
             <div className="add-saree-main">
                 <div>
                     <div>

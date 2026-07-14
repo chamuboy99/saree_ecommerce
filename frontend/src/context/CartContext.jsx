@@ -1,4 +1,5 @@
 import { createContext, useEffect, useState } from "react";
+import Swal from "sweetalert2";
 
 export const CartContext = createContext();
 
@@ -44,7 +45,13 @@ export const CartProvider = ({ children }) => {
 
             return [...prev, { ...product, quantity: 1 }];
         });
-        alert(`${product.name} added to cart!`);
+
+        Swal.fire({
+            icon: "success",
+            title: "Added to Cart",
+            timer: 1800,
+            showConfirmButton: false,
+        });
     }
 
     const increaseQuantity = (id) => {
