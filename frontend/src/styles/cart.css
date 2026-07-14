@@ -6,13 +6,6 @@
     background: #f8fafc;
 }
 
-.cart-main h1 {
-    text-align: center;
-    font-size: clamp(2rem, 4vw, 2.8rem);
-    color: #1e293b;
-    margin-bottom: 2rem;
-}
-
 .cart-main > p {
     text-align: center;
     font-size: 1.1rem;

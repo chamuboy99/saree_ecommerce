@@ -25,7 +25,6 @@ export default function Cart() {
                 open={filterOpen}
             />
             <div className="cart-main">
-                <h1>Cart</h1>
 
                 {cart.length === 0 ? (
                     <p>Cart is empty</p>

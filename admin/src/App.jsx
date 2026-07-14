@@ -3,6 +3,7 @@ import Login from "./pages/Login.jsx";
 import Dashboard from './pages/Dashboard.jsx';
 import Sarees from './pages/Sarees.jsx';
 import AddSarees from './pages/AddSaree.jsx';
+import Orders from './pages/Orders.jsx';
 import ProtectedRoute from './utils/ProtectedRoute.jsx';
 import PublicRoute from './utils/PublicRoute.jsx';
 
@@ -12,6 +13,7 @@ function App() {
       <Routes>
         <Route path='/' element={<PublicRoute><Login/></PublicRoute>}/>
         <Route path='/sarees' element={<ProtectedRoute><Sarees/></ProtectedRoute>}/>
+        <Route path='/orders' element={<ProtectedRoute><Orders/></ProtectedRoute>}/>
         <Route path='/add-sarees' element={<ProtectedRoute><AddSarees/></ProtectedRoute>}/>
         <Route path='/admin-dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
       </Routes>
