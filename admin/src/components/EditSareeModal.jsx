@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import '../styles/editsareemodal.css';
 import Swal from "sweetalert2";
 import { categories } from "../constants/categories";
+import axios from "axios";
 
 export default function EditSareeModal({ editingSaree, showModal, onClose, onUpdated }) {
     const [formData, setFormData] = useState({
@@ -41,13 +42,6 @@ export default function EditSareeModal({ editingSaree, showModal, onClose, onUpd
         try {
             setSaving(true);
             const token = localStorage.getItem("token");
-            const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/sarees/${editingSaree._id}`, formData,
-                {
-                    headers: {
-                        Authorization: `Bearer ${token}`,
-                    },
-                }
-            );
 
             if (!formData.name || !formData.price || !formData.category || !formData.subCategory) {
                 return Swal.fire({
@@ -55,6 +49,14 @@ export default function EditSareeModal({ editingSaree, showModal, onClose, onUpd
                     title: "Please fill all required fields",
                 });
             }
+
+            const res = await axios.put(`${import.meta.env.VITE_API_URL}/api/sarees/${editingSaree._id}`, formData,
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
 
             Swal.fire({
                 icon: "success",
@@ -67,6 +69,8 @@ export default function EditSareeModal({ editingSaree, showModal, onClose, onUpd
             onClose();
 
         } catch (err) {
+            console.log(err.response);
+            console.log(err.response?.data);
             Swal.fire({
                 icon: "error",
                 title: "Update failed",
@@ -118,7 +122,7 @@ export default function EditSareeModal({ editingSaree, showModal, onClose, onUpd
                 <form onSubmit={handleSubmit}>
                     <button type="button" onClick={onClose}>X</button>
                     <input type="text" name="name" value={formData.name} onChange={handleChange} placeholder="Name"/>
-                    <input type="number" name="price" value={Number(formData.price)} onChange={handleChange} placeholder="Price"/>
+                    <input type="number" name="price" value={formData.price} onChange={handleChange} placeholder="Price"/>
                     <input type="text" name="description" value={formData.description} onChange={handleChange} placeholder="Description" />
                     <select name="category" value={formData.category} onChange={handleCategoryChange}>
                         { categories.map(category => (
