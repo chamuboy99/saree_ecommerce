@@ -150,6 +150,13 @@ export const updateSaree = async (req, res) => {
             { new: true, runValidators: true }
         );
 
+        if (!updatedSaree) {
+            return res.status(404).json({
+                success: false,
+                message: "Product not found"
+            });
+        }
+
         res.json(updatedProduct);
     } catch (error) {
         res.status(500).json({
