@@ -4,11 +4,14 @@ import '../styles/sarees.css';
 import { FaEdit, FaTrash, FaSpinner  } from "react-icons/fa";
 import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
+import EditSareeModal from "../components/EditSareeModal.jsx";
 
 export default function Sarees() {
     const { id } = useParams();
     const [sarees, setSarees] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [editingSaree, setEditingSaree] = useState(null);
 
     useEffect(() => {
         async function fetchSarees() {
@@ -71,6 +74,7 @@ export default function Sarees() {
     };
 
     return (
+        <>
         <div className="sarees-main">
             {loading ? (
                 <div className="loader-container">
@@ -92,7 +96,11 @@ export default function Sarees() {
                                     </p>
                                     <p className="price"> Rs. {saree.price.toLocaleString()} </p>
                                     <div className="btn-container">
-                                        <button className="ctrl-btn"> <FaEdit /> </button>
+                                        <button className="ctrl-btn" onClick={(e)=>{
+                                            e.stopPropagation();
+                                            setEditingSaree(saree);
+                                            setShowModal(true);
+                                        }}> <FaEdit /> </button>
                                         <button className="ctrl-btn" onClick={e=>{
                                             e.stopPropagation();
                                             deleteSaree(saree._id);
@@ -103,6 +111,21 @@ export default function Sarees() {
                         ))}
                 </div>
             )}
+            <EditSareeModal 
+                showModal={showModal} 
+                editingSaree={editingSaree} 
+                onClose={()=>{
+                    setShowModal(false);
+                    setEditingSaree(null);
+                }}
+                onUpdated={(updatedSaree) => {
+                    setSarees((prev) =>
+                        prev.map((item) => item._id === updatedSaree._id ? updatedSaree: item)
+                    );
+                }}
+            />
         </div>
+        
+        </>
     );
 }

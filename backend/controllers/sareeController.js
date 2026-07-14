@@ -144,7 +144,7 @@ export const updateSaree = async (req, res) => {
             });
         }
 
-        const updatedProduct = await Product.findByIdAndUpdate(
+        const updatedProduct = await Saree.findByIdAndUpdate(
             req.params.id,
             req.body,
             { new: true, runValidators: true }
