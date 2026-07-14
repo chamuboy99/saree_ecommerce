@@ -135,29 +135,23 @@ export const getSareeById = async (req, res) => {
 
 export const updateSaree = async (req, res) => {
     try {
-        const saree = await Saree.findById(req.params.id);
-
-        if (!saree || !saree.isActive) {
-            return res.status(404).json({
-                success: false,
-                message: "Product not found"
-            });
+        const updatedSaree = await Saree.findByIdAndUpdate(
+        req.params.id,
+        req.body,
+        {
+            new: true,
+            runValidators: true,
         }
+    );
 
-        const updatedProduct = await Saree.findByIdAndUpdate(
-            req.params.id,
-            req.body,
-            { new: true, runValidators: true }
-        );
+    if (!updatedSaree) {
+        return res.status(404).json({
+            success: false,
+            message: "Product not found",
+        });
+    }
 
-        if (!updatedSaree) {
-            return res.status(404).json({
-                success: false,
-                message: "Product not found"
-            });
-        }
-
-        res.json(updatedProduct);
+    res.json(updatedSaree);
     } catch (error) {
         res.status(500).json({
             success: false,
