@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import Header from "../components/Header";
 import axios from "axios";
 import '../styles/order.css';
+import OrderStatusModal from "../components/OrderStatusModal";
 
 const Orders = () => {
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [showModal, setShowModal] = useState(false);
+    const [editingOrder, setEditingOrder] = useState(null);
 
     useEffect(() => {
         const fetchOrders = async () => {
@@ -61,11 +64,11 @@ const Orders = () => {
                                         <p>{order.phoneNumber}</p>
                                     </div>
 
-                                    <span
-                                        className={`status ${order.status
-                                            .toLowerCase()
-                                            .replace(/\s+/g, "-")}`}
-                                    >
+                                    <span className={`status ${order.status.toLowerCase().replace(/\s+/g, "-")}`} onClick={(e) => {
+                                        e.stopPropagation();
+                                        setEditingOrder(order);
+                                        setShowModal(true);
+                                    }}>
                                         {order.status}
                                     </span>
                                 </div>
@@ -116,7 +119,17 @@ const Orders = () => {
 
                     </div>
                 )}
-
+                <OrderStatusModal
+                    showModal={showModal}
+                    editingOrder={editingOrder}
+                    onClose={() => {
+                        setShowModal(false);
+                        setEditingOrder(null);
+                    }}
+                    onUpdated={(updatedOrder) => {
+                        setOrders(prev => prev.map(i => i._id === updatedOrder._id ? updatedOrder : i));
+                    }}
+                />
             </div>
         </>
     );

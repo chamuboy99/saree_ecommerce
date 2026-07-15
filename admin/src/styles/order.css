@@ -48,10 +48,6 @@
     transition: .25s;
 }
 
-.order-card:hover {
-    transform: translateY(-3px);
-}
-
 .order-top {
     display: flex;
     justify-content: space-between;
@@ -76,17 +72,27 @@
     font-size: .9rem;
     font-weight: 600;
     color: white;
+    cursor: pointer;
+    transition: 0.2s ease-in-out;
+}
+
+.status:hover {
+    font-size: 1rem;
 }
 
 .status.pending {
     background: #f39c12;
 }
 
-.status.processing {
+.status.confirmed {
     background: #3498db;
 }
 
-.status.shipped {
+.status.packing {
+    background: #935e03;
+}
+
+.status.out-for-delivery {
     background: #8e44ad;
 }
 
