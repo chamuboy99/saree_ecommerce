@@ -39,9 +39,7 @@ const Orders = () => {
     return (
         <>
             <Header />
-            <CategoryFilter 
-                showSideBar={showSideBar}
-            />
+            <CategoryFilter />
             <div className="orders-page">
 
                 <div className="orders-header">

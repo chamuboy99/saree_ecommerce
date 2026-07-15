@@ -101,9 +101,7 @@ export default function AddSarees() {
     return (
         <>
             <Header/>
-            <CategoryFilter 
-                showSideBar={showSideBar}
-            />
+            <CategoryFilter />
             <div className="add-saree-main">
                 <div>
                     <div>

@@ -81,9 +81,7 @@ export default function Sarees() {
     return (
         <>
             <Header />
-            <CategoryFilter 
-                showSideBar={showSideBar}
-            />
+            <CategoryFilter />
             <div className="sarees-main">
                 {loading ? (
                     <div className="loader-container">

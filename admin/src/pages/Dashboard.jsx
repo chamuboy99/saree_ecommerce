@@ -11,9 +11,7 @@ export default function Dashboard(){
     return (
         <>
             <Header/>
-            <CategoryFilter 
-                showSideBar={showSideBar}
-            />
+            <CategoryFilter />
             <div className="admin-dashboard-main">
                 <div className="dashboard-card">
                     <h1>Admin Dashboard</h1>

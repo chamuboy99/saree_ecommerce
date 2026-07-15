@@ -2,8 +2,8 @@ import { useContext } from 'react';
 import '../styles/categoryfilter.css';
 import { FilterContext } from '../contexts/FilterContext.jsx';
 
-export default function CategoryFilter({ showSideBar }) {
-    const { setShowSideBar } = useContext(FilterContext);
+export default function CategoryFilter() {
+    const { showSideBar, setShowSideBar } = useContext(FilterContext);
     
     if(!showSideBar) return null;
 
