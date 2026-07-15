@@ -1,0 +1,18 @@
+.filter-panel {
+    position: fixed;
+    left: 0;
+    width: 320px;
+    max-width: 90vw;
+    height: calc(100vh - 72px);
+    background: rgba(0, 0, 0, 0.655);
+    backdrop-filter: blur(18px);
+    box-shadow: 0 15px 40px rgba(0,0,0,.12);
+    overflow-y: auto;
+    transform: translateX(-110%);
+    transition: .35s ease;
+    z-index: 1000;
+}
+
+.filter-panel.open{
+    transform: translateX(0);
+}

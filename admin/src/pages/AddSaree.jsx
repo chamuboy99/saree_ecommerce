@@ -1,11 +1,14 @@
 import axios from "axios";
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { categories } from '../constants/categories.js';
 import '../styles/addsarees.css';
 import Swal from "sweetalert2";
 import Header from "../components/Header.jsx";
+import { FilterContext } from "../contexts/FilterContext.jsx";
+import CategoryFilter from "../components/CategoryFilter.jsx";
 
 export default function AddSarees() {
+    const { showSideBar } = useContext(FilterContext);
     const [formData, setFormData] = useState({
         name: "",
         description: "",
@@ -98,6 +101,9 @@ export default function AddSarees() {
     return (
         <>
             <Header/>
+            <CategoryFilter 
+                showSideBar={showSideBar}
+            />
             <div className="add-saree-main">
                 <div>
                     <div>

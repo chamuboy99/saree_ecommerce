@@ -141,10 +141,11 @@
     border: 1px solid #ececec;
     border-radius: 14px;
     transition: .2s;
+    background: #fafafa;
 }
 
 .item-card:hover {
-    background: #fafafa;
+    background: #e5e3e3;
 }
 
 .item-card img {

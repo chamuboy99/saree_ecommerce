@@ -1,10 +1,13 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Header from "../components/Header";
 import axios from "axios";
 import '../styles/order.css';
 import OrderStatusModal from "../components/OrderStatusModal";
+import CategoryFilter from "../components/CategoryFilter.jsx";
+import { FilterContext } from "../contexts/FilterContext.jsx";
 
 const Orders = () => {
+    const { showSideBar } = useContext(FilterContext);
     const [orders, setOrders] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
@@ -36,7 +39,9 @@ const Orders = () => {
     return (
         <>
             <Header />
-
+            <CategoryFilter 
+                showSideBar={showSideBar}
+            />
             <div className="orders-page">
 
                 <div className="orders-header">
@@ -92,20 +97,11 @@ const Orders = () => {
 
                                 <div className="items-grid">
                                     {order.items.map((item) => (
-                                        <div
-                                            className="item-card"
-                                            key={item._id}
-                                        >
-                                            <img
-                                                src={item.image}
-                                                alt={item.name}
-                                            />
-
+                                        <div className="item-card" key={item._id}>
+                                            <img src={item.image} alt={item.name}/>
                                             <div>
                                                 <h4>{item.name}</h4>
-
                                                 <p>Qty : {item.quantity}</p>
-
                                                 <span>
                                                     Rs. {item.price}
                                                 </span>

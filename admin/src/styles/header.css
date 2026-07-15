@@ -8,7 +8,7 @@
 
 .header-container {
     width: 100%;
-    padding: 12px 20px;
+    padding: 16px 30px;
     display: flex;
     align-items: center;
     gap: 20px;
@@ -21,16 +21,16 @@
 }
 
 .navi-btn {
-    width: 52px;
+    width: 42px;
     aspect-ratio: 1;
     border: none;
-    background: linear-gradient(135deg, #f97316, #ef4444);
+    background: linear-gradient(135deg, #0dc4d5, #6c44ef);
     color: white;
     border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 25px;
+    font-size: 22px;
     cursor: pointer;
     transition: background-color 0.2s ease;
 }

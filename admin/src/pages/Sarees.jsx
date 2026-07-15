@@ -6,6 +6,9 @@ import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import EditSareeModal from "../components/EditSareeModal.jsx";
 import Header from "../components/Header.jsx";
+import CategoryFilter from "../components/CategoryFilter.jsx";
+import { useContext } from "react";
+import { FilterContext } from "../contexts/FilterContext.jsx";
 
 export default function Sarees() {
     const { id } = useParams();
@@ -13,6 +16,7 @@ export default function Sarees() {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [editingSaree, setEditingSaree] = useState(null);
+    const { showSideBar } = useContext(FilterContext);
 
     useEffect(() => {
         async function fetchSarees() {
@@ -77,6 +81,9 @@ export default function Sarees() {
     return (
         <>
             <Header />
+            <CategoryFilter 
+                showSideBar={showSideBar}
+            />
             <div className="sarees-main">
                 {loading ? (
                     <div className="loader-container">

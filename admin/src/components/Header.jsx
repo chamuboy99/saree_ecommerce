@@ -3,9 +3,12 @@ import '../styles/header.css';
 import Swal from 'sweetalert2';
 import { FaHome, FaBars, FaSearch } from 'react-icons/fa';
 import { FiLogOut } from "react-icons/fi";
+import { useContext } from 'react';
+import { FilterContext } from '../contexts/FilterContext.jsx';
 
 export default function Header(){
     const navigate = useNavigate();
+    const { showSideBar, setShowSideBar } = useContext(FilterContext); 
 
     const logout = async () => {
         const result = await Swal.fire({
@@ -28,7 +31,7 @@ export default function Header(){
         <header className="header">
             <div className="header-container">
 
-                <button className="navi-btn">
+                <button className="navi-btn" onClick={()=>{setShowSideBar(!showSideBar)}}>
                     <FaBars />
                 </button>
 
