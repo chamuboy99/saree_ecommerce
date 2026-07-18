@@ -15,7 +15,7 @@
 
 .no-items{
     color: white;
-    grid-column: 1 / -1; /* span all grid columns */
+    grid-column: 1 / -1;
     text-align: center;
     margin-top: 20px;
     font-size: 22px;

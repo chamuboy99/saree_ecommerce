@@ -9,7 +9,8 @@
     text-align:center;
     font-size:1.2rem;
     color:#777;
-    margin-top:100px;
+    margin-top:60px;
+    grid-column: 1 / -1;
 }
 
 .sarees-grid{

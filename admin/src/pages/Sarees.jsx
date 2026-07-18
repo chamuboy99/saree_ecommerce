@@ -16,13 +16,13 @@ export default function Sarees() {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [editingSaree, setEditingSaree] = useState(null);
-    const { showSideBar } = useContext(FilterContext);
+    const { showSideBar, filters } = useContext(FilterContext);
 
     useEffect(() => {
         async function fetchSarees() {
             try {
                 setLoading(true);
-                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/sarees`);
+                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/sarees`, { params: filters});
                 setSarees(res.data);
             } catch (error) {
                 console.error(error);
@@ -31,7 +31,7 @@ export default function Sarees() {
             }
         }
         fetchSarees();
-    }, []);
+    }, [filters]);
 
     const deleteSaree = async (id) => {
         const result = await Swal.fire({
