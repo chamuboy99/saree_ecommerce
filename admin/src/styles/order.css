@@ -67,7 +67,9 @@
 }
 
 .status {
+    width: 150px;
     padding: 8px 16px;
+    text-align: center;
     border-radius: 50px;
     font-size: .9rem;
     font-weight: 600;
