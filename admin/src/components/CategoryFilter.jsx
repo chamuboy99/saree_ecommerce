@@ -5,7 +5,7 @@ import { FilterContext } from '../contexts/FilterContext.jsx';
 import { categories } from '../constants/cats.js';
 
 export default function CategoryFilter() {
-    const { showSideBar, setShowSideBar, setFilters } = useContext(FilterContext);
+    const { showSideBar, setShowSideBar, setFilters, setSearch } = useContext(FilterContext);
     const [expanded, setExpanded] = useState(null);
     const navigate = useNavigate();
 
@@ -16,6 +16,7 @@ export default function CategoryFilter() {
     }
 
     const selectCategory = (category) => {
+        setSearch("");
         if (category.name === "All") setFilters({});
         else if (category.name === "Best Sellers") setFilters({ bestSeller: true });
         else setFilters({ category: category.name });
@@ -24,6 +25,7 @@ export default function CategoryFilter() {
     }
 
     const selectSubCategory = (category, subcat) => {
+        setSearch("");
         setFilters({
             category: category.name,
             subCategory: subcat.name
@@ -33,6 +35,7 @@ export default function CategoryFilter() {
     }
 
     const selectSubSubCategory = (category, subcat, subsubcat) => {
+        setSearch("");
         setFilters({
             category: category.name,
             subCategory: subcat.name,

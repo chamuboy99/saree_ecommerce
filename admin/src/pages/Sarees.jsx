@@ -9,6 +9,7 @@ import Header from "../components/Header.jsx";
 import CategoryFilter from "../components/CategoryFilter.jsx";
 import { useContext } from "react";
 import { FilterContext } from "../contexts/FilterContext.jsx";
+import { useCallback } from "react";
 
 export default function Sarees() {
     const { id } = useParams();
@@ -16,22 +17,26 @@ export default function Sarees() {
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [editingSaree, setEditingSaree] = useState(null);
-    const { showSideBar, filters } = useContext(FilterContext);
+    const { showSideBar, filters, search } = useContext(FilterContext);
+
+    const fetchSarees = useCallback(async (currentFilters = {}) => {
+        try {
+            setLoading(true);
+            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/sarees`, { params: currentFilters });
+            setSarees(res.data);
+        } catch (error) {
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    }, []);
 
     useEffect(() => {
-        async function fetchSarees() {
-            try {
-                setLoading(true);
-                const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/sarees`, { params: filters});
-                setSarees(res.data);
-            } catch (error) {
-                console.error(error);
-            } finally {
-                setLoading(false);
-            }
-        }
-        fetchSarees();
-    }, [filters]);
+        fetchSarees({
+            ...filters,
+            search
+        });
+    }, [filters, fetchSarees, search]);
 
     const deleteSaree = async (id) => {
         const result = await Swal.fire({

@@ -8,6 +8,8 @@ export const FilterContext = createContext();
 export default function FilterProvider({ children }){
     const [showSideBar,  setShowSideBar] = useState(false);
     const [filters, setFilters] = useState({});
+    const [search, setSearch] = useState("");
+
     const location = useLocation();
 
     useEffect(() => {
@@ -18,7 +20,7 @@ export default function FilterProvider({ children }){
     }, [location.pathname]);
 
     return(
-        <FilterContext.Provider value={{showSideBar, setShowSideBar, filters, setFilters}}>
+        <FilterContext.Provider value={{showSideBar, setShowSideBar, filters, setFilters, search, setSearch}}>
             {children}
         </FilterContext.Provider>
     );
