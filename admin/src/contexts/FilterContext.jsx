@@ -13,9 +13,10 @@ export default function FilterProvider({ children }){
     const location = useLocation();
 
     useEffect(() => {
-        if(!location.pathname.startsWith('/admin-dashboard')){
+        if(!location.pathname.startsWith('/sarees')){
             setShowSideBar(false);
             setFilters({});
+            setSearch("");
         }
     }, [location.pathname]);
 

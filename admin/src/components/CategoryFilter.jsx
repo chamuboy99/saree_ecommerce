@@ -9,10 +9,8 @@ export default function CategoryFilter() {
     const [expanded, setExpanded] = useState(null);
     const navigate = useNavigate();
 
-    if (!showSideBar) return null;
-
     const toggleCategory = (index) => {
-        setExpanded(expanded === index ? null : index);
+        setExpanded(prev => prev === index ? null : index);
     }
 
     const selectCategory = (category) => {
@@ -44,6 +42,8 @@ export default function CategoryFilter() {
         setShowSideBar(false); 
         navigate('/sarees');
     }
+
+    if (!showSideBar) return null;
 
     return (
         <aside className={`filter-panel ${showSideBar ? "open" : ""}`}>

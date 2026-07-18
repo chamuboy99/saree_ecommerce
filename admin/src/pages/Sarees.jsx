@@ -2,41 +2,46 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import '../styles/sarees.css';
 import { FaEdit, FaTrash, FaSpinner } from "react-icons/fa";
-import { useParams } from "react-router-dom";
 import Swal from "sweetalert2";
 import EditSareeModal from "../components/EditSareeModal.jsx";
 import Header from "../components/Header.jsx";
 import CategoryFilter from "../components/CategoryFilter.jsx";
 import { useContext } from "react";
 import { FilterContext } from "../contexts/FilterContext.jsx";
-import { useCallback } from "react";
 
 export default function Sarees() {
-    const { id } = useParams();
     const [sarees, setSarees] = useState([]);
     const [loading, setLoading] = useState(true);
     const [showModal, setShowModal] = useState(false);
     const [editingSaree, setEditingSaree] = useState(null);
-    const { showSideBar, filters, search } = useContext(FilterContext);
-
-    const fetchSarees = useCallback(async (currentFilters = {}) => {
-        try {
-            setLoading(true);
-            const res = await axios.get(`${import.meta.env.VITE_API_URL}/api/sarees`, { params: currentFilters });
-            setSarees(res.data);
-        } catch (error) {
-            console.error(error);
-        } finally {
-            setLoading(false);
-        }
-    }, []);
+    const { filters, search } = useContext(FilterContext);
 
     useEffect(() => {
-        fetchSarees({
-            ...filters,
-            search
-        });
-    }, [filters, fetchSarees, search]);
+        async function fetchSarees() {
+            try {
+                setLoading(true);
+
+                const res = await axios.get(
+                    `${import.meta.env.VITE_API_URL}/api/sarees`,
+                    {
+                        params: {
+                            ...filters,
+                            search
+                        }
+                    }
+                );
+
+                setSarees(res.data);
+            } catch (err) {
+                console.error(err);
+                setSarees([]);
+            } finally {
+                setLoading(false);
+            }
+        }
+
+        fetchSarees();
+    }, [filters, search]);
 
     const deleteSaree = async (id) => {
         const result = await Swal.fire({
@@ -78,9 +83,7 @@ export default function Sarees() {
                 title: "Oops!",
                 text: "Something went wrong while deleting.",
             });
-        } finally {
-            setLoading(false);
-        }
+        } 
     };
 
     return (
@@ -98,7 +101,7 @@ export default function Sarees() {
                         {sarees.length === 0 ? <p className="no-items">No items found</p>
                             : sarees.map((saree) => (
                                 <div className="saree-card" key={saree._id}>
-                                    <img src={saree.image} alt={saree.name} className="saree-image" />
+                                    <img src={saree.image} alt={saree.name} className="saree-image" onError={e => e.target.src = "/placeholder.jpg"} />
                                     <div className="card-content">
                                         <h2>{saree.name}</h2>
                                         <p className="category">
@@ -106,7 +109,7 @@ export default function Sarees() {
                                             {saree.subCategory && ` • ${saree.subCategory}`}
                                             {saree.subSubCategory && ` • ${saree.subSubCategory}`}
                                         </p>
-                                        <p className="price"> Rs. {saree.price.toLocaleString()} </p>
+                                        <p className="price"> Rs. {saree.price?.toLocaleString()} </p>
                                         <div className="btn-container">
                                             <button className="ctrl-btn" onClick={(e) => {
                                                 e.stopPropagation();
